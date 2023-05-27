@@ -472,6 +472,7 @@ MINIRV32_DECORATE int32_t MiniRV32IMAStep( struct MiniRV32IMAState * state, uint
 				if( rdid )
 				{
 					REGSET( rdid, rval );
+					fprintf(stderr, "x%d=0x%08x\n", rdid, rval);
 				} // Write back register.
 				else if( ( CSR( mip ) & (1<<7) ) && ( CSR( mie ) & (1<<7) /*mtie*/ ) && ( CSR( mstatus ) & 0x8 /*mie*/) )
 				{

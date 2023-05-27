@@ -187,6 +187,9 @@ restart:
 	uint64_t rt;
 	uint64_t lastTime = (fixed_update)?0:(GetTimeMicroseconds()/time_divisor);
 	int instrs_per_flip = single_step?1:1024;
+	for (int i = 0; i < 32; i++)
+		fprintf(stderr, "x%d=0x%08x\n", i, core->regs[i]);
+
 	for( rt = 0; rt < instct+1 || instct < 0; rt += instrs_per_flip )
 	{
 		uint64_t * this_ccount = ((uint64_t*)&core->cyclel);
@@ -466,6 +469,9 @@ static void DumpState( struct MiniRV32IMAState * core, uint8_t * ram_image )
 	uint32_t pc = core->pc;
 	uint32_t pc_offset = pc - MINIRV32_RAM_IMAGE_OFFSET;
 	uint32_t ir = 0;
+
+	fprintf(stderr, "PC=0x%08x\n", pc);
+	return;
 
 	printf( "PC: %08x ", pc );
 	if( pc_offset >= 0 && pc_offset < ram_amt - 3 )
